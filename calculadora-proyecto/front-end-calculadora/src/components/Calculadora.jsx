@@ -8,8 +8,11 @@ function Calculadora(){
     const [resultado, setResultado] = useState('');
 
     function handleSubmit(e){
+        console.log("numerador: " + number1)
+        console.log("denominador: " + number2)
         e.preventDefault();
         const operacion = e.target.value;
+        //if( operacion == "sumar") { setResultado(parseInt(number1)+parseInt(number2)) }
         fetch(`http://localhost:3500/v1/calculadora/${operacion}`, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
@@ -21,6 +24,7 @@ function Calculadora(){
                 // setResultado(responseData)
                 // console.log(resultado)
             })
+            
     }
 
     return (
