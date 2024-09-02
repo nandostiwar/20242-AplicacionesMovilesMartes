@@ -27,13 +27,13 @@ body{
     border-radius: 10px;
     width: 150px;
     height: 50px;
-    background-color: rgb(121, 89, 89);
+    background-color: rgb(85, 95, 231);
     color: white;
-    border-color: rgb(121, 89, 89);
+    border-color: rgb(255, 255, 255);
     margin-left: 10px;
 }
 
 #txtCalculadora{
-    color: white;
+    color: rgb(255, 255, 255);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
