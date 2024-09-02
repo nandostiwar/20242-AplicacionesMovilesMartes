@@ -34,6 +34,10 @@ body{
 }
 
 #txtCalculadora{
+<<<<<<< HEAD
     color: rgb(255, 255, 255);
+=======
+    color: red;
+>>>>>>> e84ee089defcac15a2af1b45700334ee7f1302b9
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
