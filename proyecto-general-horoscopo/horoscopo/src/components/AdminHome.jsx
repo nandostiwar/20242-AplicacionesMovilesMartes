@@ -25,6 +25,13 @@ function AdminHome({user}){
         // console.log(signoEditar);
         // console.log(textoEditar);
         e.preventDefault();
+        if (textoEditar.toLowerCase().includes("culo"))
+        {
+            alert("No se acepta culo");
+            return;
+        }
+
+        
         fetch(`http://localhost:4000/v1/signos/${signoEditar}`, {
             method: 'PATCH',
             headers: {"Content-Type": "application/json"},
