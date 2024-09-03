@@ -21,16 +21,37 @@ function AdminHome({user}){
         home("/");
     }
 
-    function handleClick(e){
-        // console.log(signoEditar);
-        // console.log(textoEditar);
+    function handleClick(e) {
         e.preventDefault();
+    
+        // Expresión regular para verificar si "hola" está en cualquier parte del texto
+        const palabraProhibida = "culo";
+        const regex = new RegExp(palabraProhibida, 'i'); // 'i' para ignorar mayúsculas y minúsculas
+    
+        // Verifica si "hola" está en cualquier parte del texto
+        if (regex.test(textoEditar)) {
+            // Si el texto contiene "hola", no realiza la solicitud y muestra un mensaje
+            alert(`La palabra '${palabraProhibida}' no puede estar en el texto.`);
+            return; // Salir de la función sin hacer la solicitud fetch
+        }
+    
+        // Realiza la solicitud fetch solo si "hola" no está en el texto
         fetch(`http://localhost:4000/v1/signos/${signoEditar}`, {
             method: 'PATCH',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({"textoEditar": textoEditar})
         })
+        .then(response => response.json())
+        .then(data => {
+            // Maneja la respuesta aquí si es necesario
+            console.log("Respuesta del servidor:", data);
+        })
+        .catch(error => {
+            // Maneja los errores aquí si es necesario
+            console.error("Error en la solicitud:", error);
+        });
     }
+    
 
     return (
         <div class="container">

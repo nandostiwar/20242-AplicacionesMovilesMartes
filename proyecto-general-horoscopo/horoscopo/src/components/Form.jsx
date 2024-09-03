@@ -9,13 +9,18 @@ function Form({callback}){
  
     const validateUser = (event)=>{
         event.preventDefault();
-        if(username === 'user' && password === 'user2023'){
+        if (username === 'user' && password === 'user2023') {
             callback("user");
-            goTo("/userHome");
-        }else if(username === 'admin' && password==='admin2023'){
+            goTo("/userHome"); 
+        } else if (username === 'admin' && password === 'admin2023') {
             callback("admin");
             goTo("/adminHome");
+        } else {
+            alert('Usuario y/o contraseña incorrectos');
         }
+        
+        
+        
     }
     return (
         <form onSubmit={validateUser}>
@@ -24,7 +29,7 @@ function Form({callback}){
             <input type="text" className="entry" onChange={(e)=> setUsername(e.target.value)}/><br></br>
             <h4 className="txt">Contraseña</h4>  
             <input type="password" className="entry" onChange={(e)=> setPassword(e.target.value)}/><br></br>
-            <input type="submit" value="Ingresar" id="btnEnviar"/>
+            <input type="submit" value="Ingresar" id="btnEnviar"   />
         </form>
     )
 }
