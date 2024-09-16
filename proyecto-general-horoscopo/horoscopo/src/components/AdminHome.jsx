@@ -22,14 +22,21 @@ function AdminHome({user}){
     }
 
     function handleClick(e){
+      
+      
+
         // console.log(signoEditar);
         // console.log(textoEditar);
         e.preventDefault();
+        
         fetch(`http://localhost:4000/v1/signos/${signoEditar}`, {
             method: 'PATCH',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({"textoEditar": textoEditar})
+            
         })
+       
+        
     }
 
     return (
@@ -49,6 +56,8 @@ function AdminHome({user}){
                 <option value="Acuario">Acuario</option>
                 <option value="Piscis">Piscis</option>
             </select>
+            <div><h2 style={{ color: 'blue' }}>cuadro</h2></div>
+        
             <textarea id="textoEditar" cols="50" rows="10" onChange={(e)=> setTextoEditar(e.target.value)}>
 
             </textarea>

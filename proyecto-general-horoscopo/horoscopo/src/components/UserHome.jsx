@@ -16,6 +16,8 @@ function UserHome({user}){
 
     async function handleSelect(event){
         const signo = event.target.value;
+      
+      
         if(signo!=="0"){
             fetch(`http://localhost:4000/v1/signos/${signo}`)
                 .then(response => response.json())

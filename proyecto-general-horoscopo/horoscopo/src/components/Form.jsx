@@ -5,11 +5,36 @@ import { useNavigate } from 'react-router-dom';
 function Form({callback}){
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
+    //const [error, setError] = useState("");
     const goTo = useNavigate();
  
     const validateUser = (event)=>{
         event.preventDefault();
-        if(username === 'user' && password === 'user2023'){
+/*
+        fetch('/20242-AplicacionesMovilesMartes/proyecto-general-horoscopo/api-json/db/credenciales.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error al obtener los datos');
+          }
+          return response.json();
+        })
+
+        .then(users => {
+            // Verificamos si el usuario y contraseña coinciden con algún usuario del archivo JSON
+            const user = users.find(user => user.username === username && user.password === password);
+    
+            if (user) {
+              // Si el usuario es válido, inicia sesión
+              setError(""); // Limpiamos el mensaje de error
+              alert("Login exitoso!");
+              // Aquí podrías redirigir al usuario a otra página o guardar el estado de la sesión
+            } else {
+              // Si no coinciden, mostramos un mensaje de error
+              setError("Nombre de usuario o contraseña incorrectos");
+            }
+          })
+*/
+       if(username === 'user' && password === 'user2023'){
             callback("user");
             goTo("/userHome");
         }else if(username === 'admin' && password==='admin2023'){
