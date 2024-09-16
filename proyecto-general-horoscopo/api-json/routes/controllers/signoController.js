@@ -33,9 +33,33 @@ const updateSigno = async (req, res)=>{
         message: "Updated"
     })
 }
+const loginController = async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const credentialsPath = path.join(__dirname, '../../db/credentiales.json');
+        const credentialsData = await fs.readFile(credentialsPath, 'utf-8');
+        const credentials = JSON.parse(credentialsData);
+
+        const user = credentials[username];
+
+        if (user && user.password === password) {
+            const response = { success: true, role: user.role, message: 'Datos ingresados correctamente' };
+            console.log('Response:', response);
+            res.json(response);
+        } else {
+            const response = { success: false, message: 'Datos incorrectos' };
+            console.log('Response:', response);
+            res.json(response);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false, message: 'Error en el servidor' });
+    }
+};
 
 module.exports = {
     getAllSignos,
     getOneSigno,
-    updateSigno
+    updateSigno,
+    loginController
 }
