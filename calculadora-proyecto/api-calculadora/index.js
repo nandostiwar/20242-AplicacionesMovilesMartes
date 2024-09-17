@@ -1,16 +1,18 @@
 const express = require('express');
-const {urlencoded, json} = require('express');
-const router = require('./routes/calculadora.routes.js');
 const cors = require('cors');
+const calculadoraRoutes = require('./routes/calculadora.routes.js'); // Importar las rutas
 
 const app = express();
 
-app.use(urlencoded({extended: true}));
-app.use(json());
+// Middlewares
 app.use(cors());
+app.use(express.json()); // Para parsear JSON
 
-app.use('/v1/calculadora', router);
+// Usar las rutas del archivo calculadoraRoutes.js
+app.use('/v1/calculadora', calculadoraRoutes);
 
-app.listen(3500, ()=>{
-    console.log("Listening at port 3500");
-})
+// Puerto
+const PORT = process.env.PORT || 3500;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});

@@ -1,10 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const calculadoraControllers = require('../controllers/calculadoraControllers.js');
+const {
+    sumar,
+    restar,
+    multiplicar,
+    crearEcuacion,
+    ordenarAscendente,
+    ordenarDescendente
+} = require('../controllers/calculadoraControllers'); // Ajusta la ruta si es necesario
 
-router
-    .post('/sumar', calculadoraControllers.sumar)
-    .post('/restar', calculadoraControllers.restar)
-    .post('/multiplicar', calculadoraControllers.multiplicar)
+
+router.post('/suma', sumar);
+
+
+router.post('/resta', restar);
+
+
+router.post('/multiplicacion', multiplicar);
+
+
+router.post('/ecuacion', crearEcuacion);
+
+
+router.post('/ascendente', ordenarAscendente);
+
+
+router.post('/descendente', ordenarDescendente);
 
 module.exports = router;

@@ -1,9 +1,10 @@
 import '../styles/Resultado.css';
 
-function Resultado({resultado}){
+function Resultado({ resultado }) {
     return (
-        <p>{resultado}</p>
-    )
+        <p>{resultado}</p>  // Muestra el resultado pasado como prop
+    );
 }
 
-export default Resultado;
+export default Resultado;  // Exporta el componente para su uso en otros archivos
+
