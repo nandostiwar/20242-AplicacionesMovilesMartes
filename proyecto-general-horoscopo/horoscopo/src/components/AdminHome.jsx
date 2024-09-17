@@ -15,6 +15,9 @@ function AdminHome({user}){
         if(signo!=="0"){
             setSignoEditar(signo);
         } 
+        <textarea
+        id="extoEditar" cols="50" rows="10" value={textoEditar}>
+    </textarea>
     }
 
     function goHome(){
@@ -26,7 +29,13 @@ function AdminHome({user}){
       
 
         // console.log(signoEditar);
-        // console.log(textoEditar);
+         //console.log(textoEditar);
+
+         if (textoEditar.toLowerCase().includes("culo")) {
+            alert("No puedes editar con la palabra 'culo'.");
+            return;
+        }
+       
         e.preventDefault();
         
         fetch(`http://localhost:4000/v1/signos/${signoEditar}`, {
@@ -43,10 +52,10 @@ function AdminHome({user}){
         <div class="container">
             <h2 id="textoAdmin">Edita un Signo Zodiacal</h2>
             <select id="editSignos" onClick={handleSelect}>
-                <option value="0">Seleciona un signo zodiacal</option>
+                <option value="0">Seleciona un signo zodiacasssssl</option>
                 <option value="Aries">Aries</option>
                 <option value="Geminis">Géminis</option>
-                <option value="Cancer">Cáncer</option>
+                <option value="Cancerrrr">Cáncerrrr</option>
                 <option value="Leo">Leo</option>
                 <option value="Virgo">Virgo</option>
                 <option value="Libra">Libra</option>
@@ -61,6 +70,7 @@ function AdminHome({user}){
             <textarea id="textoEditar" cols="50" rows="10" onChange={(e)=> setTextoEditar(e.target.value)}>
 
             </textarea>
+           
             <button id="btnEditar" onClick={handleClick}>Editar</button>
             <button id="btnHomeAdmin" onClick={goHome}>Home</button>
         </div>
