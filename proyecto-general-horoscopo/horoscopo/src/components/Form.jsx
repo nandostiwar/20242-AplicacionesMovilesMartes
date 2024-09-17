@@ -1,3 +1,4 @@
+// src/components/Form.jsx
 import './styles/Form.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -41,22 +42,21 @@ function Form({ callback }) {
         <form onSubmit={validateUser}>
             <h1 id="txtBienvenida">Bienvenido a nuestro portal del Zodiaco</h1>
             <h4 className="txt">Nombre de Usuario</h4>
-            <input
-                type="text"
-                className="entry"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            /><br />
+            <input type="text" className="entry" onChange={(e) => setUsername(e.target.value)} /><br />
             <h4 className="txt">Contraseña</h4>
-            <input
-                type="password"
-                className="entry"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            /><br />
+            <input type="password" className="entry" onChange={(e) => setPassword(e.target.value)} /><br />
             <input type="submit" value="Ingresar" id="btnEnviar" />
+            {/* Botón para cambiar contraseña */}
+            <button
+                type="button"
+                id="btnChangePassword"
+                onClick={() => navigate('/changePassword')}
+            >
+                Cambiar Contraseña
+            </button>
         </form>
     );
 }
 
 export default Form;
+
