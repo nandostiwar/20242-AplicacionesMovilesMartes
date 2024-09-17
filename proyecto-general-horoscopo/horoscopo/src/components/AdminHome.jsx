@@ -3,9 +3,9 @@ import './styles/AdminHome.css'
 import { useState } from "react";
 
 function AdminHome({user}){
-    if(user!=='admin' || !user){
+ /*   if(user.tipo!=='admin' || !user){
         return <Navigate to="/"/>
-    }
+    }*/
     const home = useNavigate();
     const [textoEditar, setTextoEditar] = useState("");
     const [signoEditar, setSignoEditar] = useState("");
@@ -56,7 +56,7 @@ function AdminHome({user}){
                 <option value="Acuario">Acuario</option>
                 <option value="Piscis">Piscis</option>
             </select>
-            <div><h2 style={{ color: 'blue' }}>cuadro</h2></div>
+          
         
             <textarea id="textoEditar" cols="50" rows="10" onChange={(e)=> setTextoEditar(e.target.value)}>
 

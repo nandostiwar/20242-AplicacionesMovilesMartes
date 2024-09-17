@@ -1,9 +1,10 @@
 [{
     "username": "user",
-    "password": "user2023"
-
+    "password": "user2023",
+    "tipo":"user"
 },
 {
     "username": "admin",
-    "password": "admin2023" 
+    "password": "admin2023",
+    "tipo":"admin"
 }]
