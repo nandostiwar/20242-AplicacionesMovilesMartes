@@ -1,6 +1,7 @@
 import { useState } from "react";
 import '../styles/Calculadora.css';
 
+<<<<<<< HEAD
 function VariablesManager() {
     const [variables, setVariables] = useState({
         a: '',
@@ -47,6 +48,25 @@ function VariablesManager() {
         const values = selectedVars.map(key => variables[key]);
 
         fetch('http://localhost:3500/v1/calculadora/ordenarAsc', {
+=======
+
+
+function Calculadora(){
+    const [number1, setNumber1] = useState('');
+    const [number2, setNumber2] = useState('');
+    const [resultado, setResultado] = useState('');
+
+    function handleSubmit(e){
+        //console.log("numerador: " +number2);
+        e.preventDefault();
+        const operacion = e.target.value;
+        //if(operacion == "sumar") {setResultado(("donChimbo"))}
+        if(operacion == "sumar") {setResultado(parseInt(number1)+parseInt(number2))}
+        if(operacion == "restar") {setResultado(parseInt(number1)-parseInt(number2))}
+        if(operacion == "multiplicar") {setResultado(parseInt(number1)*parseInt(number2))}
+    
+        fetch(`http://localhost:3500/v1/calculadora/${operacion}`, {
+>>>>>>> 93226778afe81732c5ec5b9ef3a215bc2b607f43
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -86,11 +106,17 @@ function VariablesManager() {
                 variables: variables,
                 equation: equation
             })
+<<<<<<< HEAD
         })
             .then(response => response.json())
             .then(data => setEquationResult(data.resultado))
             .catch(error => console.error('Error:', error));
+=======
+
+        
+>>>>>>> 93226778afe81732c5ec5b9ef3a215bc2b607f43
     }
+
 
     return (
         <div>
