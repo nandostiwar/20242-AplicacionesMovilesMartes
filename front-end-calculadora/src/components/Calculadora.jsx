@@ -94,7 +94,7 @@ function VariablesManager() {
 
     return (
         <div className="container">
-            <p>CALCULADORA</p>
+            <p className="txtCalculadora">CALCULADORA CON ORDEN ASC Y DESC</p>
             <div >
                 <label>A = </label>
                 <input type="text" value={variables.a} onChange={(e) => handleChangeVariable(e, 'a')} placeholder="Ingresa valor para a" />
