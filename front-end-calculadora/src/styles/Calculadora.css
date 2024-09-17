@@ -7,7 +7,7 @@ body{
 .container{
     text-align: center;
     justify-content: center;
-    background-color: gray;
+    background-color: rgb(248, 164, 164);
     padding: 50px;
     margin: 50px;
     border-radius: 50px;
@@ -15,7 +15,7 @@ body{
     display: block;
 }
 
-.number{
+.number, .div1{
     margin: 20px;
     height: 20px;
     border-radius: 20px;
@@ -30,15 +30,94 @@ body{
     background-color: rgb(85, 95, 231);
     color: white;
     border-color: rgb(255, 255, 255);
-    margin-left: 10px;
+    margin: 10px;
 }
-#columnas{
-    column-count:4;
-    column-gap:20px;
-    column-rule:4px dotted gray;
- }
 
 #txtCalculadora{
     color: rgb(255, 255, 255);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/* Estilos generales para la calculadora */
+.container {
+    background-color: #f4f7f6;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.container p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.div1, div {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 60%;
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-left: 10px;
+}
+
+.btnEnviar {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnEnviar:hover {
+    background-color: #0056b3;
+}
+
+h3 {
+    color: #007BFF;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+}
+
+button {
+    display: inline-block;
 }
