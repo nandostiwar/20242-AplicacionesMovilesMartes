@@ -23,6 +23,8 @@ function multiply(a, b){
     return number1 * number2;
 }
 
+function ordenar(){}
+
 module.exports = {
     add,
     subtract,

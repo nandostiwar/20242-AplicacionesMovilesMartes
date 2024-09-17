@@ -27,6 +27,15 @@ function multiplicar(req, res){
     })
 }
 
+function multiplicar(req, res){
+    const {body} = req;
+    const {number1, number2} = body;
+    const result = multiply(number1, number2);
+    res.json({
+        resultado: result
+    })
+}
+
 module.exports = {
     sumar,
     restar,

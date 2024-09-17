@@ -8,8 +8,7 @@ function App() {
   return (
     <>
       <Calculadora/>
-      <Calculadora/>
-      <Calculadora/>
+     
     </>
   )
 }

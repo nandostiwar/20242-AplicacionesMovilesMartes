@@ -13,7 +13,7 @@ function Form({callback}){
       event.preventDefault(); // Evitar que el formulario se envíe por defecto
   
       try {
-        // Hacemos la solicitud a tu backend para obtener las credenciales
+        // solicitud a  backend para obtener las credenciales
         const response = await fetch('http://localhost:4000/v1/credenciales');
         const users = await response.json(); // formato JSON
   
@@ -34,11 +34,11 @@ function Form({callback}){
             navigate("/userHome");
           }
         } else {
-          // Si no coinciden, mostramos un mensaje de error
+        
           setError('Nombre de usuario o contraseña incorrectos');
         }
       } catch (error) {
-        // Si ocurre un error durante la solicitud
+       
         setError('Error al iniciar sesión');
       }
     };
