@@ -28,7 +28,7 @@ function Form({callback}){
           if (user.tipo === 'admin') {
             console.log('dirigido a adminHome');
             console.log(user.tipo);
-            navigate("/adminHome");
+            goTo("/adminHome");
            
           } else {
             navigate("/userHome");
