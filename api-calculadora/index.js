@@ -2,7 +2,7 @@
 
 const express = require('express');
 const app = express();
-const calculatorRoutes = require('./api-calculadora/routes/calculadola.routes');
+const calculatorRoutes = require('./api-calculadora/routes/calculadora.routes.js');
 
 app.use(express.json());
 
