@@ -1,0 +1,80 @@
+const fs = require('fs');
+const path = require('path');
+
+// Ruta del archivo donde se guardarán los logs
+const logPath = path.join(__dirname, 'memoria.json');
+
+// Función auxiliar para escribir en el log
+const escribirLog = (accion, datos) => {
+    const nuevoLog = {
+        accion,
+        datos,
+        timestamp: new Date().toISOString()
+    };
+
+    // Leer el archivo actual
+    fs.readFile(logPath, 'utf8', (err, data) => {
+        let logs = [];
+        if (!err && data) {
+            logs = JSON.parse(data); // Si ya hay logs, los leemos
+        }
+
+        logs.push(nuevoLog); // Agregamos el nuevo log
+
+        // Escribimos el archivo de nuevo
+        fs.writeFile(logPath, JSON.stringify(logs, null, 2), (err) => {
+            if (err) {
+                console.error('Error al escribir en el log:', err);
+            }
+        });
+    });
+};
+
+exports.ordenarAsc = (req, res) => {
+    const { variables } = req.body;
+    const sortedAsc = variables.map(Number).sort((a, b) => a - b);
+
+    // Guardar log
+    escribirLog('Ordenar Ascendente', { variables, resultado: sortedAsc });
+
+    res.json({ resultado: sortedAsc });
+};
+
+exports.ordenarDesc = (req, res) => {
+    const { variables } = req.body;
+    const sortedDesc = variables.map(Number).sort((a, b) => b - a);
+
+    // Guardar log
+    escribirLog('Ordenar Descendente', { variables, resultado: sortedDesc });
+
+    res.json({ resultado: sortedDesc });
+};
+
+exports.calcularEcuacion = (req, res) => {
+    const { variables, equation } = req.body;
+
+    if (!variables || !equation) {
+        return res.status(400).json({ error: 'Faltan datos en la solicitud' });
+    }
+
+    // Reemplazar variables en la ecuación
+    let ecuacionReemplazada = equation;
+    for (const [key, value] of Object.entries(variables)) {
+        ecuacionReemplazada = ecuacionReemplazada.replace(new RegExp(key, 'g'), value);
+    }
+
+    try {
+        // Evaluar la ecuación
+        const resultado = eval(ecuacionReemplazada);
+
+        // Guardar log
+        escribirLog('Calcular Ecuación', { variables, equation, ecuacionReemplazada, resultado });
+
+        res.json({ resultado });
+    } catch (error) {
+        res.status(400).json({ error: 'Error al evaluar la ecuación' });
+
+        // Guardar log en caso de error
+        escribirLog('Error al Calcular Ecuación', { variables, equation, error: error.message });
+    }
+};
