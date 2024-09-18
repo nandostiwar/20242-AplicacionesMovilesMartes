@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora con Almacenamiento</title>
+    <link rel="stylesheet" href="styles/styles.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+
+    <div class="container">
+        <div class="box">
+            <label>A: </label>
+            <input type="number" id="inputA" value="6" disabled>
+            <button id="toggleA" class="locked">Bloquear</button>
+        </div>
+        <div class="box">
+            <label>B: </label>
+            <input type="number" id="inputB" value="43">
+            <button id="toggleB" class="unlocked">Desbloquear</button>
+        </div>
+        <div class="box">
+            <label>C: </label>
+            <input type="number" id="inputC" value="4" disabled>
+            <button id="toggleC" class="locked">Bloquear</button>
+        </div>
+        <div class="box">
+            <label>D: </label>
+            <input type="number" id="inputD" value="5" disabled>
+            <button id="toggleD" class="locked">Bloquear</button>
+        </div>
+        <div class="box">
+            <label>E: </label>
+            <input type="number" id="inputE" value="12" disabled>
+            <button id="toggleE" class="locked">Bloquear</button>
+        </div>
+        <div class="box">
+            <label>F: </label>
+            <input type="number" id="inputF" value="6" disabled>
+            <button id="toggleF" class="locked">Bloquear</button>
+        </div>
+    </div>
+
+    <div class="output">
+        <button onclick="ascendente()">Ascendente</button>
+        <span id="ascendenteOutput"></span>
+
+        <br><br>
+
+        <button onclick="descendente()">Descendente</button>
+        <span id="descendenteOutput"></span>
+
+        <br><br>
+
+        <label>Resultado:</label>
+        <span id="resultadoEcuacion">0</span>
+
+        <br><br>
+
+        <button onclick="calcularEcuacion()">Calcular Ecuación</button>
+    </div>
+
+    <div class="output">
+        <button onclick="guardarResultado()">Guardar Resultado</button>
+        <button onclick="mostrarResultados()">Mostrar Resultados Guardados</button>
+        <ul id="resultadosGuardados"></ul>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

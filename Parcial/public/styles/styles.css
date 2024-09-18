@@ -1,0 +1,43 @@
+/* styles/styles.css */
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.box {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.box input[type="number"] {
+    width: 50px;
+    text-align: center;
+}
+
+.box button {
+    margin-left: 10px;
+    width: 100px; /* Ajustado para el texto */
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.output {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Estilo para el botón bloqueado */
+button.locked {
+    background-color: #ff6f6f; /* Rojo claro */
+}
+
+/* Estilo para el botón desbloqueado */
+button.unlocked {
+    background-color: #4caf50; /* Verde */
+}
