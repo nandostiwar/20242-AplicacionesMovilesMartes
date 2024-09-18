@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora con Historial</title>
+    <link rel="stylesheet" href="styles/styles.css"> <!-- Enlace a CSS -->
+</head>
+<body>
+
+    <section class="calculator">
+        <div class="input-group">
+            <label>Valor A: </label>
+            <input type="number" id="valorA" value="6" disabled>
+            <button id="bloquearA" class="locked">Bloquear</button>
+        </div>
+        <div class="input-group">
+            <label>Valor B: </label>
+            <input type="number" id="valorB" value="43">
+            <button id="bloquearB" class="unlocked">Desbloquear</button>
+        </div>
+        <div class="input-group">
+            <label>Valor C: </label>
+            <input type="number" id="valorC" value="4" disabled>
+            <button id="bloquearC" class="locked">Bloquear</button>
+        </div>
+        <div class="input-group">
+            <label>Valor D: </label>
+            <input type="number" id="valorD" value="5" disabled>
+            <button id="bloquearD" class="locked">Bloquear</button>
+        </div>
+        <div class="input-group">
+            <label>Valor E: </label>
+            <input type="number" id="valorE" value="12" disabled>
+            <button id="bloquearE" class="locked">Bloquear</button>
+        </div>
+        <div class="input-group">
+            <label>Valor F: </label>
+            <input type="number" id="valorF" value="6" disabled>
+            <button id="bloquearF" class="locked">Bloquear</button>
+        </div>
+    </section>
+
+    <section class="controls">
+        <button onclick="ordenarAscendente()">Ordenar Ascendente</button>
+        <p id="ascendenteOutput"></p>
+
+        <button onclick="ordenarDescendente()">Ordenar Descendente</button>
+        <p id="descendenteOutput"></p>
+
+        <label>Resultado de la Ecuación:</label>
+        <p id="resultadoEcuacion">0</p>
+
+        <button onclick="resolverEcuacion()">Calcular Ecuación</button>
+    </section>
+
+    <section class="history">
+        <button onclick="guardarResultado()">Guardar Resultado</button>
+        <button onclick="mostrarHistorial()">Mostrar Historial</button>
+        <ol id="historialResultados"></ol>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
