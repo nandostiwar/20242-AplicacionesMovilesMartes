@@ -1,251 +1,120 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../styles/Calculadora.css';
+import Resultado from "./Resultado";
 
-<<<<<<< HEAD
-function VariablesManager() {
-    const [variables, setVariables] = useState({
-        a: '',
-        b: '',
-        c: '',
-        d: '',
-        e: '',
-        f: ''
-    });
-
-    const [selected, setSelected] = useState({
-        a: false,
-        b: false,
-        c: false,
-        d: false,
-        e: false,
-        f: false
-    });
-
-    const [sortedAsc, setSortedAsc] = useState([]);
-    const [sortedDesc, setSortedDesc] = useState([]);
-    const [equation, setEquation] = useState('');
-    const [equationResult, setEquationResult] = useState(null);
-
-    function handleChangeVariable(e, variableName) {
-        const value = e.target.value;
-        setVariables(prevVariables => ({
-            ...prevVariables,
-            [variableName]: value
-        }));
-    }
-
-    function handleCheckboxChange(e, variableName) {
-        const checked = e.target.checked;
-        setSelected(prevSelected => ({
-            ...prevSelected,
-            [variableName]: checked
-        }));
-    }
-
-    // Enviar las variables seleccionadas al backend para ordenarlas ascendentemente
-    function handleSortAsc() {
-        const selectedVars = Object.keys(variables).filter(key => selected[key]);
-        const values = selectedVars.map(key => variables[key]);
-
-        fetch('http://localhost:3500/v1/calculadora/ordenarAsc', {
-=======
-
-
-function Calculadora(){
+function Calculadora() {
     const [number1, setNumber1] = useState('');
     const [number2, setNumber2] = useState('');
+    const [number3, setNumber3] = useState('');
+    const [number4, setNumber4] = useState('');
+    const [number5, setNumber5] = useState('');
+    const [number6, setNumber6] = useState('');
+    const [historial, setHistorial] = useState([]);
+
+    const [check1, setCheck1] = useState(false);
+    const [check2, setCheck2] = useState(false);
+    const [check3, setCheck3] = useState(false);
+    const [check4, setCheck4] = useState(false);
+    const [check5, setCheck5] = useState(false);
+    const [check6, setCheck6] = useState(false);
+
+    const [ecuacion, setEcuacion] = useState(''); // Estado para la ecuación
     const [resultado, setResultado] = useState('');
 
-    function handleSubmit(e){
-        //console.log("numerador: " +number2);
+    useEffect(() => {
+        fetch('http://localhost:3500/v1/calculadora/historial')
+            .then(res => res.json())
+            .then(data => setHistorial(data.historial))
+            .catch(err => console.error('Error al cargar el historial:', err));
+    }, []);
+
+    function handleSubmit(e) {
         e.preventDefault();
         const operacion = e.target.value;
-        //if(operacion == "sumar") {setResultado(("donChimbo"))}
-        if(operacion == "sumar") {setResultado(parseInt(number1)+parseInt(number2))}
-        if(operacion == "restar") {setResultado(parseInt(number1)-parseInt(number2))}
-        if(operacion == "multiplicar") {setResultado(parseInt(number1)*parseInt(number2))}
-    
-        fetch(`http://localhost:3500/v1/calculadora/${operacion}`, {
->>>>>>> 93226778afe81732c5ec5b9ef3a215bc2b607f43
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ variables: values })
-        })
-            .then(response => response.json())
-            .then(data => setSortedAsc(data.resultado))
-            .catch(error => console.error('Error:', error));
-    }
 
-    // Enviar las variables seleccionadas al backend para ordenarlas descendentemente
-    function handleSortDesc() {
-        const selectedVars = Object.keys(variables).filter(key => selected[key]);
-        const values = selectedVars.map(key => variables[key]);
+        if (operacion === 'calcularEcuacion') {
+            // Recolectar todas las variables
+            const variables = { A: number1, B: number2, C: number3, D: number4, E: number5, F: number6 };
 
-        fetch('http://localhost:3500/v1/calculadora/ordenarDesc', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ variables: values })
-        })
-            .then(response => response.json())
-            .then(data => setSortedDesc(data.resultado))
-            .catch(error => console.error('Error:', error));
-    }
-
-    // Enviar las variables y la ecuación al backend para calcular la ecuación
-    function handleCalculateEquation() {
-        fetch('http://localhost:3500/v1/calculadora/calcularEcuacion', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                variables: variables,
-                equation: equation
+            fetch('http://localhost:3500/v1/calculadora/calcularEcuacion', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ variables, equation: ecuacion }) // Enviar ecuación y variables
             })
-<<<<<<< HEAD
-        })
-            .then(response => response.json())
-            .then(data => setEquationResult(data.resultado))
-            .catch(error => console.error('Error:', error));
-=======
+                .then(res => res.json())
+                .then(responseData => {
+                    setResultado(responseData.resultado); // Mostrar el resultado de la ecuación
+                });
+        } else {
+            // Recolectar solo los números seleccionados para ordenar
+            const selectedNumbers = [];
+            if (check1) selectedNumbers.push(number1);
+            if (check2) selectedNumbers.push(number2);
+            if (check3) selectedNumbers.push(number3);
+            if (check4) selectedNumbers.push(number4);
+            if (check5) selectedNumbers.push(number5);
+            if (check6) selectedNumbers.push(number6);
 
-        
->>>>>>> 93226778afe81732c5ec5b9ef3a215bc2b607f43
+            const endpoint = operacion === "Ascendente" ? "ordenarAsc" : "ordenarDesc";
+
+            fetch(`http://localhost:3500/v1/calculadora/${endpoint}`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ variables: selectedNumbers })
+            })
+                .then(res => res.json())
+                .then(responseData => {
+                    setResultado(responseData.resultado);
+                });
+        }
     }
-
 
     return (
-        <div>
-            <div>
-                <label>a = </label>
-                <input
-                    type="text"
-                    value={variables.a}
-                    onChange={(e) => handleChangeVariable(e, 'a')}
-                    placeholder="Ingresa valor para a"
-                />
-                <input
-                    type="checkbox"
-                    checked={selected.a}
-                    onChange={(e) => handleCheckboxChange(e, 'a')}
-                />
-            </div>
-            <div>
-                <label>b = </label>
-                <input
-                    type="text"
-                    value={variables.b}
-                    onChange={(e) => handleChangeVariable(e, 'b')}
-                    placeholder="Ingresa valor para b"
-                />
-                <input
-                    type="checkbox"
-                    checked={selected.b}
-                    onChange={(e) => handleCheckboxChange(e, 'b')}
-                />
-            </div>
-            <div>
-                <label>c = </label>
-                <input
-                    type="text"
-                    value={variables.c}
-                    onChange={(e) => handleChangeVariable(e, 'c')}
-                    placeholder="Ingresa valor para c"
-                />
-                <input
-                    type="checkbox"
-                    checked={selected.c}
-                    onChange={(e) => handleCheckboxChange(e, 'c')}
-                />
-            </div>
-            <div>
-                <label>d = </label>
-                <input
-                    type="text"
-                    value={variables.d}
-                    onChange={(e) => handleChangeVariable(e, 'd')}
-                    placeholder="Ingresa valor para d"
-                />
-                <input
-                    type="checkbox"
-                    checked={selected.d}
-                    onChange={(e) => handleCheckboxChange(e, 'd')}
-                />
-            </div>
-            <div>
-                <label>e = </label>
-                <input
-                    type="text"
-                    value={variables.e}
-                    onChange={(e) => handleChangeVariable(e, 'e')}
-                    placeholder="Ingresa valor para e"
-                />
-                <input
-                    type="checkbox"
-                    checked={selected.e}
-                    onChange={(e) => handleCheckboxChange(e, 'e')}
-                />
-            </div>
-            <div>
-                <label>f = </label>
-                <input
-                    type="text"
-                    value={variables.f}
-                    onChange={(e) => handleChangeVariable(e, 'f')}
-                    placeholder="Ingresa valor para f"
-                />
-                <input
-                    type="checkbox"
-                    checked={selected.f}
-                    onChange={(e) => handleCheckboxChange(e, 'f')}
-                />
-            </div>
-
-            <div>
-                <label>Ecuación: </label>
-                <input
-                    type="text"
-                    value={equation}
-                    onChange={(e) => setEquation(e.target.value)}
-                    placeholder="Ingresa una ecuación (ej. 3f + 2e)"
-                />
-                <button onClick={handleCalculateEquation}>Calcular</button>
-            </div>
-
-            {equationResult !== null && (
-                <div>
-                    <h3>Resultado de la ecuación:</h3>
-                    <p>{equationResult}</p>
-                </div>
-            )}
-
-            <button onClick={handleSortAsc}>Ordenar Ascendente</button>
-            <button onClick={handleSortDesc}>Ordenar Descendente</button>
-
-            <div>
-                <p>a: {variables.a}</p>
-                <p>b: {variables.b}</p>
-                <p>c: {variables.c}</p>
-                <p>d: {variables.d}</p>
-                <p>e: {variables.e}</p>
-                <p>f: {variables.f}</p>
-            </div>
-
-            <div>
-                <h3>Resultado del ordenamiento Ascendente:</h3>
-                <p>{sortedAsc.join(', ')}</p>
-            </div>
-
-            <div>
-                <h3>Resultado del ordenamiento Descendente:</h3>
-                <p>{sortedDesc.join(', ')}</p>
-            </div>
+        <div className="container">
+            <h1 id="txtCalculadora">CALCULADORA</h1>
+            <form>
+                <label htmlFor="">A</label>
+                <input type="text" className="number" onChange={(e) => setNumber1(e.target.value)} />
+                <input type="checkbox" onChange={(e) => setCheck1(e.target.checked)} /> <br />
+                
+                <label htmlFor="">B</label>
+                <input type="text" className="number" onChange={(e) => setNumber2(e.target.value)} />
+                <input type="checkbox" onChange={(e) => setCheck2(e.target.checked)} /> <br />
+                
+                <label htmlFor="">C</label>
+                <input type="text" className="number" onChange={(e) => setNumber3(e.target.value)} />
+                <input type="checkbox" onChange={(e) => setCheck3(e.target.checked)} /> <br />
+                
+                <label htmlFor="">D</label>
+                <input type="text" className="number" onChange={(e) => setNumber4(e.target.value)} />
+                <input type="checkbox" onChange={(e) => setCheck4(e.target.checked)} /> <br />
+                
+                <label htmlFor="">E</label>
+                <input type="text" className="number" onChange={(e) => setNumber5(e.target.value)} />
+                <input type="checkbox" onChange={(e) => setCheck5(e.target.checked)} /> <br />
+                
+                <label htmlFor="">F</label>
+                <input type="text" className="number" onChange={(e) => setNumber6(e.target.value)} />
+                <input type="checkbox" onChange={(e) => setCheck6(e.target.checked)} /> <br />
+                
+                <label htmlFor="">Ecuación</label>
+                <input type="text" className="number" onChange={(e) => setEcuacion(e.target.value)} /> <br />
+                
+                <input type="submit" className="btnEnviar" value="Ascendente" onClick={handleSubmit} />
+                <input type="submit" className="btnEnviar" value="Descendiente" onClick={handleSubmit} />
+                <input type="submit" className="btnEnviar" value="calcularEcuacion" onClick={handleSubmit} /> {/* Botón para calcular ecuación */}
+            </form>
+            <Resultado resultado={"El resultado es " + resultado} />
+            
+            {/* Mostrar el historial */}
+            <h2>Historial de operaciones</h2>
+            <ul>
+                {historial.map((entry, index) => (
+                    <li key={index}>{entry}</li>
+                ))}
+            </ul>
         </div>
     );
 }
 
-export default VariablesManager;
+export default Calculadora;
