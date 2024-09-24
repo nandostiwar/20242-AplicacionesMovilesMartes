@@ -7,7 +7,7 @@ function Form({callback}){
     const [password, setPassword] = useState(null);
     const goTo = useNavigate();
  
-    const validateUser = (event)=>{
+   /* const validateUser = (event)=>{
         event.preventDefault();
         if (username === 'user' && password === 'user2023') {
             callback("user");
@@ -21,7 +21,38 @@ function Form({callback}){
         
         
         
-    }
+    }*/
+        const validateUser = async (event) => {
+            event.preventDefault();
+        
+            try {
+                const response = await fetch('http://localhost:4000/v1/auth/login', { // Actualiza la URL aquí
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+        
+                const data = await response.json();
+        
+                if (response.ok) {
+                    callback(data.role);
+                    if (data.role === 'user') {
+                        goTo("/userHome");
+                    } else if (data.role === 'admin') {
+                        goTo("/adminHome");
+                    }
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An error occurred during login.');
+            }
+        };
+        
+    
     return (
         <form onSubmit={validateUser}>
             <h1 id="txtBienvenida">Bienvenido a nuestro portal del Zodiaco</h1>
