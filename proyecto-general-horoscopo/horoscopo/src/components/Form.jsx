@@ -7,45 +7,40 @@ function Form({callback}){
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [error, setError] = useState(null);
-    const goTo = useNavigate();
+    const navigate = useNavigate();
  
     const handleSubmit = async (event) => {
       event.preventDefault(); // Evitar que el formulario se envíe por defecto
   
       try {
-       
-        // solicitud a  backend para obtener las credenciales
+        
         const response = await fetch('http://localhost:4000/v1/credenciales', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },  body: JSON.stringify({ username, password })
+          method: 'POST',
+          
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }) // Enviar credenciales
         });
-
+        console.log("ddddd");
         const data = await response.json();
-        //const users = await response.json(); // formato JSON
-        // Verificamos si existe un usuario con esas credenciales
-       // const user = users.find(user => user.username === username && user.password === password);
-       console.log(data.tipo);
-        if (data) {
-         
+
+        if (response.ok) {
           console.log('Inicio de sesión correcto');
-  
+    
           // Redirigir según el tipo de usuario
-          if (data.tipo === 'admin') {
-            console.log('dirigido a adminHome');
-            console.log(user.tipo);
+          if (data.user.tipo === 'admin') {
+            console.log('Redirigiendo a adminHome');
             goTo("/adminHome");
-           
           } else {
             navigate("/userHome");
           }
         } else {
-        
+          console.log(data.message); // Mostrar el mensaje de error del servidor
           setError('Nombre de usuario o contraseña incorrectos');
         }
       } catch (error) {
-       
+        console.error('Error al iniciar sesión', error);
         setError('Error al iniciar sesión');
       }
     };

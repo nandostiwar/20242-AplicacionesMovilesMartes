@@ -1,13 +1,11 @@
-// routes/credenciales.routes.js
 const express = require('express');
 const credencialesController = require('./controllers/credenciales.controller.js');
-//const { getCredenciales } = require('./controllers/credenciales.controller.js');
-
 const router = express.Router();
 
-// Definimos la ruta GET para obtener las credenciales
-router
-   
-    .patch('/', credencialesController.loginUser)
+// Ruta para obtener todas las credenciales
+router.get('/', credencialesController.getCredenciales);
+
+// Ruta para verificar las credenciales enviadas desde el frontend
+router.post('/verificarCredenciales', credencialesController.verificarCredenciales);
 
 module.exports = router;

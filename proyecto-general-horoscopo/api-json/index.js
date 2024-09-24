@@ -7,12 +7,12 @@ const cors = require('cors');
 const app = express();
 
 app.use(urlencoded({extended: true}))
-app.use(json())
+app.use(json());
+app.use(cors());
 
-app.use(cors())
 app.use('/v1/signos', router);
 app.use('/v1/credenciales', routerCredenciales);  // Nueva ruta para credenciales
 
 app.listen(4000, ()=>{
     console.log('listening at port 4000');
-})
+})  

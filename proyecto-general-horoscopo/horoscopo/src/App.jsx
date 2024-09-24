@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log("appp");
+  
   console.log(user);
   return (  
     <BrowserRouter>

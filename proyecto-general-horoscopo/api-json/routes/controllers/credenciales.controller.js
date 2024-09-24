@@ -1,34 +1,39 @@
 // controllers/credenciales.controller.js
 
 // Simulamos una "base de datos" de usuarios (podrías usar un archivo JSON o una verdadera DB)
-
-
 const credenciales = require('../../db/credenciales.json');
-
-// Función para comparar los datos enviados desde el JSX (frontend)
-const loginUser = (req, res) => {
-  const { username, password } = req.body;  // Obtenemos el usuario y la contraseña del cuerpo de la petición
-
-  // Buscamos si hay alguna credencial que coincida con los datos enviados
-  const user = credenciales.find(credencial => 
+  
+  // Función para obtener todas las credenciales
+  const getCredenciales = (req, res) => {
+    res.json(credenciales);  // Enviamos las credenciales como respuesta
+  };
+  
+// Función para comparar credenciales
+const verificarCredenciales = (req, res) => {
+  const { username, password } = req.body;  // Obtenemos los datos del cuerpo de la solicitud
+  console.log("ffffffff");
+  // Buscar si hay alguna credencial que coincida con los datos enviados desde el frontend
+  const usuario = credenciales.find(credencial => 
     credencial.username === username && credencial.password === password
   );
 
-  // Si encontramos un usuario, enviamos un mensaje de éxito con los detalles del usuario
-  if (user) {
+  if (usuario) {
+    // Si las credenciales coinciden, devolvemos el usuario y su tipo
     res.json({
       message: "Login successful",
       user: {
-        username: user.username,
-        tipo: user.tipo
+        username: usuario.username,
+        tipo: usuario.tipo
       }
     });
   } else {
     // Si no coinciden, devolvemos un mensaje de error
-    res.status(401).json({ message: "Invalid credentials" });
+    res.status(401).json({ message: "Usuario o contraseña incorrectos" });
   }
 };
 
-module.exports = {
-  loginUser
-};
+
+  module.exports = {
+    getCredenciales,
+    verificarCredenciales,
+  };
