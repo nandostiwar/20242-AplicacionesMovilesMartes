@@ -1,0 +1,50 @@
+[
+  {
+    "operation": "calcularEcuacion",
+    "input": {
+      "variables": {
+        "a": "1",
+        "b": "2",
+        "c": "3",
+        "d": "4",
+        "e": "5",
+        "f": "6"
+      },
+      "equation": "3a+6b"
+    },
+    "result": 93,
+    "timestamp": "2024-09-24T23:21:42.795Z"
+  },
+  {
+    "operation": "ordenarAsc",
+    "input": [
+      "1",
+      "2",
+      "5",
+      "6"
+    ],
+    "result": [
+      1,
+      2,
+      5,
+      6
+    ],
+    "timestamp": "2024-09-24T23:21:47.200Z"
+  },
+  {
+    "operation": "ordenarDesc",
+    "input": [
+      "1",
+      "2",
+      "5",
+      "6"
+    ],
+    "result": [
+      6,
+      5,
+      2,
+      1
+    ],
+    "timestamp": "2024-09-24T23:21:47.985Z"
+  }
+]
