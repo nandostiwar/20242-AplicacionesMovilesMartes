@@ -52,7 +52,7 @@ function AdminHome({user}){
         <div class="container">
             <h2 id="textoAdmin">Edita un Signo Zodiacal</h2>
             <select id="editSignos" onClick={handleSelect}>
-                <option value="0">Seleciona un signo zodiacasssssl</option>
+                <option value="0">Seleciona un signo zodiacal</option>
                 <option value="Aries">Aries</option>
                 <option value="Geminis">Géminis</option>
                 <option value="Cancerrrr">Cáncerrrr</option>

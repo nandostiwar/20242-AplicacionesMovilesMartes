@@ -13,19 +13,26 @@ function Form({callback}){
       event.preventDefault(); // Evitar que el formulario se envíe por defecto
   
       try {
+       
         // solicitud a  backend para obtener las credenciales
-        const response = await fetch('http://localhost:4000/v1/credenciales');
-        const users = await response.json(); // formato JSON
-  
+        const response = await fetch('http://localhost:4000/v1/credenciales', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },  body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+        //const users = await response.json(); // formato JSON
         // Verificamos si existe un usuario con esas credenciales
-        const user = users.find(user => user.username === username && user.password === password);
-  
-        if (user) {
+       // const user = users.find(user => user.username === username && user.password === password);
+       console.log(data.tipo);
+        if (data) {
          
           console.log('Inicio de sesión correcto');
   
           // Redirigir según el tipo de usuario
-          if (user.tipo === 'admin') {
+          if (data.tipo === 'admin') {
             console.log('dirigido a adminHome');
             console.log(user.tipo);
             goTo("/adminHome");
