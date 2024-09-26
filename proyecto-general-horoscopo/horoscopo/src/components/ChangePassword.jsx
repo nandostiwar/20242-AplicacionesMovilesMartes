@@ -1,9 +1,16 @@
+import './styles/Form.css'
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 function ChangePassword() {
     const [username, setUsername] = useState('');
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+
+    const home = useNavigate();
+    function goHome(){
+        home("/");
+    }
 
     const changePassword = async (event) => {
         event.preventDefault();
@@ -32,19 +39,20 @@ function ChangePassword() {
     return (
         <form onSubmit={changePassword}>
             <h1>Cambiar Contraseña</h1>
-            <label>Usuario</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <h4 className="txt">Usuario</h4> 
+            <input className="entry" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
             <br />
 
-            <label>Contraseña Anterior</label>
-            <input type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
+            <h4 className="txt">Contraseña Anterior</h4> 
+            <input className="entry" type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
             <br />
 
-            <label>Nueva Contraseña</label>
-            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+            <h4 className="txt">Nueva Contraseña</h4>
+            <input className="entry" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
             <br />
 
-            <button type="submit">Cambiar Contraseña</button>
+            <button type="submit" id="btnEnviar">Cambiar Contraseña</button>
+            <button className="link" onClick={goHome}>Volver</button>
         </form>
     );
 }

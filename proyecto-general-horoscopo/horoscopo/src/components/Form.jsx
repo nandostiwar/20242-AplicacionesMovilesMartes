@@ -1,11 +1,15 @@
 import './styles/Form.css'
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Form({callback}){
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const goTo = useNavigate();
+
+    function goChangePassword(){
+        goTo("/change-password");
+    }
  
     const validateUser = async (event)=>{
         event.preventDefault();
@@ -41,8 +45,8 @@ function Form({callback}){
             <input type="text" className="entry" onChange={(e)=> setUsername(e.target.value)}/><br></br>
             <h4 className="txt">Contraseña</h4>  
             <input type="password" className="entry" onChange={(e)=> setPassword(e.target.value)}/><br></br>
-            <input type="submit" value="Ingresar" id="btnEnviar"   />
-            <Link to="/change-password">¿Olvidaste tu contraseña?</Link>
+            <input type="submit" value="Ingresar" id="btnEnviar"/>
+            <button className='link' onClick={goChangePassword}>Cambiar Contraseña</button>
         </form>
     )
 }
