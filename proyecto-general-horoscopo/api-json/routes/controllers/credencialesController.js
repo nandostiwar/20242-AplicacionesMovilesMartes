@@ -70,5 +70,35 @@ const changePassword = async (req, res) => {
     }
 };
 
+const createUser = async (req, res) => {
+    const { username, password, role } = req.body;
+    
+    try {
+        // Determina el archivo de destino según el rol
+        const filePath = role === 'admin' 
+            ? path.join(__dirname, '../../db/admin.json') 
+            : path.join(__dirname, '../../db/user.json');
+        
+        // Lee el archivo JSON correspondiente
+        const data = await fs.readFile(filePath, 'utf-8');
+        const users = JSON.parse(data);
 
-module.exports = { validateCredentials, changePassword };
+        // Verifica si el usuario ya existe
+        if (users.some(u => u.user === username)) {
+            return res.status(400).json({ message: 'El nombre de usuario ya existe' });
+        }
+
+        // Agrega el nuevo usuario
+        users.push({ user: username, pass: password });
+        
+        // Guarda el archivo JSON actualizado
+        await fs.writeFile(filePath, JSON.stringify(users, null, 2), 'utf-8');
+
+        res.status(201).json({ message: `Usuario creado exitosamente como ${role}` });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al crear el usuario' });
+    }
+};
+
+module.exports = { validateCredentials, changePassword, createUser };
+

@@ -10,6 +10,9 @@ function Form({callback}){
     function goChangePassword(){
         goTo("/change-password");
     }
+    function goNewUser(){
+        goTo("/create-user");
+    }
  
     const validateUser = async (event)=>{
         event.preventDefault();
@@ -47,6 +50,7 @@ function Form({callback}){
             <input type="password" className="entry" onChange={(e)=> setPassword(e.target.value)}/><br></br>
             <input type="submit" value="Ingresar" id="btnEnviar"/>
             <button className='link' onClick={goChangePassword}>Cambiar Contraseña</button>
+            <button className='link' onClick={goNewUser}>Crear Usuario</button>
         </form>
     )
 }
