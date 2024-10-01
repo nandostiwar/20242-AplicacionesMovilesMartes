@@ -1,7 +1,5 @@
-
 {
-    "username": "nico",
-    "password": "nico2023",
-    "role": "user"
-  }
-  
+  "username": "user",
+  "password": "nicolito",
+  "role": "admin"
+}
