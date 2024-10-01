@@ -1,5 +1,17 @@
-{
-      "username": "user",
-      "password": "user2023",
-      "role": "user"
-}
+[
+  {
+    "username": "user",
+    "password": "user2023",
+    "role": "user"
+  },
+  {
+    "username": "nuevoUsuario",
+    "password": "nuevaContraseña",
+    "role": "user"
+  },
+  {
+    "username": "user123",
+    "password": "user2024",
+    "role": "user"
+  }
+]
