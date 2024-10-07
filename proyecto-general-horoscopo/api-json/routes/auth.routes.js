@@ -57,5 +57,31 @@ router.put('/change-password', (req, res) => {
         res.status(500).json({ message: 'Error al leer el archivo de usuarios' });
     }
 });
+// Ruta para crear un nuevo usuario
+router.post('/register', (req, res) => {
+    const { username, password, role } = req.body;
+    const filePath = path.join(__dirname, '../db/user.json');
+
+    // Verificar si el archivo de usuarios existe
+    if (fs.existsSync(filePath)) {
+        const users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        // Verificar si el usuario ya existe
+        const userExists = users.some(user => user.username === username);
+        if (userExists) {
+            return res.status(400).json({ message: 'El usuario ya existe' });
+        }
+
+        // Agregar el nuevo usuario
+        const newUser = { username, password, role };
+        users.push(newUser);
+
+        // Guardar los cambios en el archivo
+        fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf-8');
+        res.status(201).json({ message: 'Usuario creado exitosamente' });
+    } else {
+        res.status(500).json({ message: 'Error al leer el archivo de usuarios' });
+    }
+});
 
 module.exports = router;
