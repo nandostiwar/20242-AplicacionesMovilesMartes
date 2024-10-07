@@ -18,6 +18,10 @@ const getOneSigno = async (req, res)=>{
 const updateSigno = async (req, res)=>{
     const signoEditar = req.params.signoEditar;
     const {textoEditar} = req.body;
+    console.log("Metodo updateSigno");
+  console.log("signoEditar: ",signoEditar );
+  console.log("textoEditar: ",textoEditar);
+ 
     const allSignos = await fs.readFile(path.join(__dirname,'../../db/signos.json'));
     const objSignos = JSON.parse(allSignos);
 
