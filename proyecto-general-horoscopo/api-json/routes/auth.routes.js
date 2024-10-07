@@ -1,57 +1,60 @@
+// auth.routes.js
 const express = require('express');
-const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const router = express.Router();
 
-// Ruta para el login de usuarios (mantener existente)
+// Ruta para iniciar sesión (login)
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
+    const filePath = path.join(__dirname, '../db/user.json');
 
-    // Leer el archivo user.json
-    const userPath = path.join(__dirname, '../db/user.json');
-    const userCreds = JSON.parse(fs.readFileSync(userPath, 'utf8'));
+    // Leer archivo user.json
+    if (fs.existsSync(filePath)) {
+        const users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-    // Leer el archivo admin.json
-    const adminPath = path.join(__dirname, '../db/admin.json');
-    const adminCreds = JSON.parse(fs.readFileSync(adminPath, 'utf8'));
+        // Buscar al usuario en la lista de usuarios
+        const user = users.find(user => user.username === username);
 
-    // Verifica si el usuario es válido
-    let user = null;
-    if (username === userCreds.username && password === userCreds.password) {
-        user = userCreds;
-    } else if (username === adminCreds.username && password === adminCreds.password) {
-        user = adminCreds;
-    }
-
-    if (user) {
-        res.status(200).json({ message: 'Login successful', role: user.role });
+        if (user) {
+            // Verificar la contraseña
+            if (user.password === password) {
+                res.json({ role: user.role });
+            } else {
+                res.status(401).json({ message: 'Contraseña incorrecta' });
+            }
+        } else {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+        }
     } else {
-        res.status(401).json({ message: 'Invalid username or password' });
+        res.status(500).json({ message: 'Error al leer el archivo de usuarios' });
     }
 });
 
-// Nueva ruta para cambiar la contraseña
+// Ruta para cambiar contraseña
 router.put('/change-password', (req, res) => {
     const { username, newPassword } = req.body;
+    const filePath = path.join(__dirname, '../db/user.json');
 
-    const userPath = path.join(__dirname, '../db/user.json');
-    const adminPath = path.join(__dirname, '../db/admin.json');
+    // Leer archivo user.json
+    if (fs.existsSync(filePath)) {
+        const users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-    // Leer credenciales
-    const userCreds = JSON.parse(fs.readFileSync(userPath, 'utf8'));
-    const adminCreds = JSON.parse(fs.readFileSync(adminPath, 'utf8'));
+        // Buscar al usuario en la lista de usuarios
+        const userIndex = users.findIndex(user => user.username === username);
 
-    // Verificar si es usuario o administrador
-    if (username === userCreds.username) {
-        userCreds.password = newPassword;
-        fs.writeFileSync(userPath, JSON.stringify(userCreds, null, 2));
-        res.status(200).json({ message: 'Password updated for user' });
-    } else if (username === adminCreds.username) {
-        adminCreds.password = newPassword;
-        fs.writeFileSync(adminPath, JSON.stringify(adminCreds, null, 2));
-        res.status(200).json({ message: 'Password updated for admin' });
+        if (userIndex !== -1) {
+            // Actualizar la contraseña del usuario
+            users[userIndex].password = newPassword;
+
+            // Guardar los cambios en el archivo
+            fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf-8');
+            res.json({ message: 'Contraseña actualizada correctamente' });
+        } else {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+        }
     } else {
-        res.status(404).json({ message: 'User not found' });
+        res.status(500).json({ message: 'Error al leer el archivo de usuarios' });
     }
 });
 
