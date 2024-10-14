@@ -1,4 +1,4 @@
-// routes/auth.routes.js
+    // routes/auth.routes.js
 const express = require('express');
 const router = express.Router();
 const usuarios = require('../db/credenciales'); // Importa las credenciales desde credenciales.js
